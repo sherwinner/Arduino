@@ -137,31 +137,26 @@ int sendSignal(int potread, int potsend, int dbLow, int dbHigh, String joint, in
    potsend = analogRead(potread);
    if(potsend < dbLow)
    {
-      if (servCur < servMin)
+      if (!(servCur < servMin))
       {
-      }
-      else
-      {
-         servCur = servCur-20;
-         //radio.write(&servCur, sizeof(servCur));
-         Serial.println(joint);
-         Serial.println(servCur);
-         delay (100);
+         doMove(-20, servCur, joint);
       }
    }
    if(potsend > dbHigh)
    {
-      if(servCur > servMax)
+      if(!(servCur > servMax))
       {
-      }
-      else
-      {
-         servCur = servCur+20;
-         //radio.write(&servCur, sizeof(servCur));
-         Serial.println(joint);
-         Serial.println(servCur);
-         delay (100);
+         doMove(20, servCur, joint);
       }        
    }
 return servCur;
-}   
+}
+int doMove(int move, int &servCur, String joint)
+{
+  servCur = servCur + move;
+  //radio.write(&servCur, sizeof(servCur));
+         Serial.println(joint);
+         Serial.println(servCur);
+         delay (100);
+}
+ 
