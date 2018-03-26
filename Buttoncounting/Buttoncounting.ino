@@ -151,12 +151,12 @@ int sendSignal(int potread, int potsend, int dbLow, int dbHigh, String joint, in
    }
 return servCur;
 }
-int doMove(int move, int &servCur, String joint)
+int doMove(int move, int &subServCur, String subJoint)
 {
-  servCur = servCur + move;
+  subServCur = subServCur + move;
   //radio.write(&servCur, sizeof(servCur));
-         Serial.println(joint);
-         Serial.println(servCur);
-         delay (100);
+  Serial.println(subJoint);
+  Serial.println(subServCur);
+  delay (100);
 }
  
