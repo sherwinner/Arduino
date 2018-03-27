@@ -75,43 +75,16 @@ void loop()
 
 
    //check pots and send over radio
+   
    //base_turn
    sendSignal(pot0, valPot0, 400, 480, "base_turn", baseTurnCur, 70, 520);
    
    //base_tilt
    if (buttonPushCounter == 1) // counter defaults to 1
    {
-   valPot1 = analogRead(pot1); // set 'valPot1' to be the value read in from a joystick
-   if(valPot1 < 405) // if the it's less than 405, then assume the joystick is moved down
-      {
-         if (baseTiltCur < 80)  // if the servo is already at it's minumum don't do shit
-         {
-         }
-         else  // but otherwise
-         {
-            baseTiltCur = baseTiltCur-20; //decrement the servo by 20
-            //radio.write(&servCur, sizeof(servCur));
-            Serial.println("baseTilt"); //print the servo you're moving
-            Serial.println(baseTiltCur); // and its new position
-            delay (100); //wait a bit
-         }
-      }
-      if(valPot1 > 450) //if the value from the joystick is more than 450, assume the joystick is moved up
-      {
-         if(baseTiltCur > 470) //if the servo is already at the maximum, dno't do shit
-         {
-         }
-         else  //but otherwise
-         {
-            baseTiltCur = baseTiltCur+20; //increment the servo by 20
-            //radio.write(&servCur, sizeof(servCur));
-            Serial.println("baseTilt"); //print the servo you're moving
-            Serial.println(baseTiltCur); // and its new position
-            delay (100); //wait a bit
-        }        
-     }
+      sendSignal(pot1, valPot1, 405, 450, "base_tilt", elbCur, 80, 470);    
    }
-  
+      
    //elbow
    else if(buttonPushCounter == 2) // if the count of button pushes is 2 execute this crap
    {
